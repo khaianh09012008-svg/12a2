@@ -1,0 +1,259 @@
+/* 1. KHUNG CHỨA TỔNG THỂ */
+.GTH {
+  background-color: #ffffff;
+  width: 100vw;
+  height: 56.25vw; /* Tỉ lệ 16:9 chuẩn (768/1366) */
+  position: relative;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+/* 2. CẤU HÌNH CHUNG CHO ẢNH NỀN (Tấm 1, 3, 6 -> 20) */
+.GTH .element {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* Hoặc cover tùy ông muốn mất lề hay không */
+}
+
+/* 3. TẤM SỐ 2 (.img) */
+.GTH .img {
+  position: absolute;
+  width: 43.26%;  /* 591/1366 */
+  height: 86.32%; /* 663/768 */
+  /* Chuyển calc sang % cho đồng bộ */
+  top: 13.54%;    /* (768/2 - 279) / 768 */
+  left: 56.73%;   /* (1366/2 + 92) / 1366 */
+  object-fit: contain;
+}
+
+/* 4. TẤM SỐ 4 (.element-2) - ĐÃ FIX LỆCH */
+.GTH .element-2 {
+  position: absolute;
+  width: 69.03%;  /* 943/1366 */
+  height: 58.72%; /* 451/768 */
+  top: 0; 
+  left: 0;
+  object-fit: contain;
+}
+
+/* 5. TẤM SỐ 5 (.element-3) - ĐÃ FIX LỆCH */
+.GTH .element-3 {
+  position: absolute;
+  width: 86.38%;  /* 1180/1366 */
+  height: 65.10%; /* 500/768 */
+  top: 0;
+  left: 0;
+  object-fit: contain;
+}
+/* 1. THIẾT LẬP CHUNG */
+.GTH img {
+  position: absolute;
+  opacity: 0; /* Ẩn hết để chạy animation */
+  animation-duration: 0.8s;
+  animation-timing-function: ease-out;
+  animation-fill-mode: forwards;
+}
+
+/* 2. ĐỊNH NGHĨA HIỆU ỨNG */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Hiệu ứng quét từ trái sang phải, ảnh đứng yên */
+@keyframes revealLeft {
+  from {
+    opacity: 0;
+    clip-path: inset(0 100% 0 0); /* Che hết từ phải sang trái */
+  }
+  to {
+    opacity: 1;
+    clip-path: inset(0 0 0 0);    /* Hiện ra toàn bộ */
+  }
+}
+
+/* 3. THỨ TỰ XUẤT HIỆN */
+
+/* Nhóm 1: 1, 4, 6, 5, 2, 3 hiện dần cùng lúc */
+.GTH img:nth-child(1), .GTH img:nth-child(4), .GTH img:nth-child(6),
+.GTH img:nth-child(5), .GTH img:nth-child(2), .GTH img:nth-child(3) {
+  animation-name: fadeIn;
+  animation-delay: 0.2s;
+}
+
+/* Nhóm 2: 7, 8, 9 hiện kiểu quét (reveal) từ trái sang */
+.GTH img:nth-child(7) { 
+  animation-name: revealLeft; 
+  animation-delay: 1.0s; 
+  animation-duration: 1.2s; /* Cho nó chạy chậm lại xíu nhìn mới rõ hiệu ứng quét */
+}
+
+.GTH img:nth-child(8) { 
+  animation-name: revealLeft; 
+  animation-delay: 1.5s; 
+  animation-duration: 1.2s;
+}
+
+.GTH img:nth-child(9) { 
+  animation-name: revealLeft; 
+  animation-delay: 2.0s; 
+  animation-duration: 1.2s;
+}
+
+/* Nhóm 3: 10, 20, 11 -> 16 hiện bình thường */
+.GTH img:nth-child(10) { animation-name: fadeIn; animation-delay: 2.6s; }
+.GTH img:nth-child(20) { animation-name: fadeIn; animation-delay: 2.9s; }
+.GTH img:nth-child(11) { animation-name: fadeIn; animation-delay: 3.2s; }
+.GTH img:nth-child(12) { animation-name: fadeIn; animation-delay: 3.5s; }
+.GTH img:nth-child(13) { animation-name: fadeIn; animation-delay: 3.8s; }
+.GTH img:nth-child(14) { animation-name: fadeIn; animation-delay: 4.1s; }
+.GTH img:nth-child(15) { animation-name: fadeIn; animation-delay: 4.4s; }
+.GTH img:nth-child(16) { animation-name: fadeIn; animation-delay: 4.7s; }
+
+/* Nhóm 4: 17, 18, 19 hiện sau khi nhạc đã lên (tầm giây thứ 6) */
+.GTH img:nth-child(17) { animation-name: fadeIn; animation-delay: 6.0s; }
+.GTH img:nth-child(18) { animation-name: fadeIn; animation-delay: 6.3s; }
+/* 1. Vùng chạm của nút Play */
+/* 1. Vùng chạm của nút Play 19 */
+/* Cho tất cả ảnh xuyên thấu để click ăn vào cửa sổ (window) */
+.GTH img {
+    pointer-events: none;
+}
+
+/* Tấm 19 cho hiện cuối cùng theo animation của ông */
+.GTH img:nth-child(20) { /* Trong HTML mới tấm 19 nằm ở vị trí thứ 20 */
+    animation-name: fadeIn;
+    animation-delay: 6.6s; /* Hiện sau cùng */
+}
+
+/* Giữ nguyên code Popup Video tui đưa ở trên */
+#video-overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.9);
+    z-index: 10000;
+    justify-content: center; align-items: center;
+}
+/* Nút đóng (X) - Cho nó to và có nền để dễ thấy trên video */
+#close-btn {
+    position: fixed; /* Thay vì absolute để nó luôn ở góc màn hình */
+    top: 20px;
+    right: 20px;
+    background: rgba(255, 255, 255, 0.2); /* Nền mờ cho dễ nhìn */
+    border: none;
+    color: white;
+    font-size: 50px;
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    text-align: center;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 10001; /* Phải cao hơn z-index của video-overlay */
+    transition: 0.3s;
+}
+
+#close-btn:hover {
+    background: rgba(255, 255, 255, 0.5);
+    transform: scale(1.1);
+}
+
+/* Đảm bảo video container không chiếm hết 100% để còn thấy nút đóng */
+.video-container {
+    position: relative;
+    width: 90%; /* Để lại 10% khoảng trống rìa */
+    max-width: 1200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.video-container video {
+    width: 100%;
+    max-height: 90vh; /* Không cho cao quá màn hình */
+    border-radius: 10px;
+}
+/* Container chứa nút */
+.custom-controls {
+    position: absolute;
+    right: 90px;
+    bottom: 90px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    /* Tăng z-index lên cực cao */
+    z-index: 99999 !important; 
+    opacity: 0;
+    animation: fadeIn 0.5s forwards;
+    animation-delay: 7s;
+}
+
+/* Container chứa nút */
+.custom-controls {
+    position: absolute;
+    right: 70px; /* Cách lề phải 40px */
+    bottom: 60px; /* Cách lề dưới 40px */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    z-index: 99999 !important; 
+    opacity: 0;
+    animation: fadeIn 0.5s forwards;
+    animation-delay: 7s; /* Đợi ảnh 19 hiện xong mới hiện nút */
+}
+
+/* Nút Mũi tên xanh */
+#btn-scroll-down {
+    width: 45px;
+    height: 45px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    pointer-events: auto !important;
+}
+
+/* Vẽ mũi tên bằng ký tự */
+#btn-scroll-down::after {
+    content: "▼";
+    color: #00f2ff; /* Màu xanh neon */
+    font-size: 40px;
+    text-shadow: 0 0 10px rgba(0, 242, 255, 0.8);
+}
+
+/* Nút Play đỏ */
+#btn-play-video {
+    width: 70px;
+    height: 70px;
+    background-color: #b22222; /* Đỏ đậm */
+    border: 4px solid white;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+    pointer-events: auto !important;
+}
+
+/* Vẽ tam giác Play trắng */
+#btn-play-video::after {
+    content: "";
+    width: 0;
+    height: 0;
+    border-top: 15px solid transparent;
+    border-bottom: 15px solid transparent;
+    border-left: 25px solid white;
+    margin-left: 8px; /* Đẩy tam giác vào giữa vòng tròn */
+}
+
+.control-btn:hover {
+    transform: scale(1.1);
+    filter: brightness(1.2);
+}

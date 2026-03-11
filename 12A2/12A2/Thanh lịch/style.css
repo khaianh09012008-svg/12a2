@@ -1,0 +1,80 @@
+/* 1. KHUNG CHỨA TỔNG THỂ */
+.thanh-lch {
+  background-color: #ffffff;
+  width: 100vw;
+  height: 56.25vw; 
+  position: relative;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+/* 2. THIẾT LẬP CHUNG CHO TẤT CẢ ẢNH */
+.thanh-lch img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain; 
+  display: block;
+  opacity: 0; 
+  animation-duration: 0.8s;
+  animation-timing-function: ease-out;
+  animation-fill-mode: forwards;
+  
+  /* XÓA DÒNG PAUSED ĐI, HOẶC ĐỂ RUNNING NHƯ DƯỚI ĐÂY */
+  animation-play-state: running; 
+}
+
+/* 3. VỊ TRÍ RIÊNG CHO TẤM SỐ 2 (Giữ nguyên thông số ông đã fix) */
+.thanh-lch .img {
+  width: 74.08%;
+  height: 67.31%;
+  left: 35%;
+  top: 33%;
+  transform: translate(-50%, -50%); 
+  z-index: 10;
+}
+
+/* 4. ĐỊNH NGHĨA 2 KIỂU HIỆU ỨNG */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideInLeft {
+  from { 
+    opacity: 0; 
+    transform: translateX(-100px); /* Trượt từ bên trái sang 100px */
+  }
+  to { 
+    opacity: 1; 
+    transform: translateX(0); 
+  }
+}
+
+/* 5. KỊCH BẢN XUẤT HIỆN */
+
+/* NHÓM 1: 1 -> 5 hiện tại chỗ cùng lúc */
+.thanh-lch img:nth-child(1),
+.thanh-lch img:nth-child(2),
+.thanh-lch img:nth-child(3),
+.thanh-lch img:nth-child(4),
+.thanh-lch img:nth-child(5) {
+  animation-name: fadeIn;
+  animation-delay: 0.2s;
+}
+
+/* NHÓM 2: 6, 7, 8 TRƯỢT TỪ TRÁI VÔ LẦN LƯỢT */
+.thanh-lch img:nth-child(6) { animation-name: slideInLeft; animation-delay: 1.0s; }
+.thanh-lch img:nth-child(7) { animation-name: slideInLeft; animation-delay: 1.3s; }
+.thanh-lch img:nth-child(8) { animation-name: slideInLeft; animation-delay: 1.6s; }
+
+/* NHÓM 3: Ngừng 1 xíu rồi 9 -> 15 hiện tại chỗ lần lượt */
+.thanh-lch img:nth-child(9)  { animation-name: fadeIn; animation-delay: 2.6s; }
+.thanh-lch img:nth-child(10) { animation-name: fadeIn; animation-delay: 2.9s; }
+.thanh-lch img:nth-child(11) { animation-name: fadeIn; animation-delay: 3.2s; }
+.thanh-lch img:nth-child(12) { animation-name: fadeIn; animation-delay: 3.5s; }
+.thanh-lch img:nth-child(13) { animation-name: fadeIn; animation-delay: 3.8s; }
+.thanh-lch img:nth-child(14) { animation-name: fadeIn; animation-delay: 4.1s; }
+.thanh-lch img:nth-child(15) { animation-name: fadeIn; animation-delay: 4.4s; }

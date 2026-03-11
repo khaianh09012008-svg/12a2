@@ -1,0 +1,623 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@800&family=Patrick+Hand&family=Coming+Soon&family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&family=Lexend:wght@700;900&family=JetBrains+Mono:wght@800&display=swap');
+
+@theme {
+  --font-patrick: 'Patrick Hand', cursive;
+  --font-coming: 'Coming Soon', cursive;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+:root {
+    --board-bg: #256344; /* Nền bảng xanh rêu */
+    --grid-color: rgba(255, 255, 255, 0.15); /* Đường kẻ sọc trắng mờ */
+    --primary-color: #1e293b;
+    --main-bg-color: #f8fafc;
+    --header-height: 90px;
+}
+
+/* --- HEADER STYLES (PROVIDED) --- */
+.site-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: var(--header-height);
+    background: rgba(255, 255, 255, 0.75); 
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    z-index: 4000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 40px;
+    box-sizing: border-box;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.site-header.hidden-header {
+    transform: translateY(-100%);
+}
+
+.header-logo {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.header-logo-img {
+    height: auto;
+    max-height: 70%;
+    width: auto;
+    object-fit: contain;
+    display: block;
+}
+
+.main-nav {
+    display: flex;
+    gap: 30px;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: #64748b;
+    font-weight: 600;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: color 0.2s;
+    position: relative;
+    font-family: 'Be Vietnam Pro', sans-serif;
+}
+
+.nav-link:hover {
+    color: var(--primary-color);
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: #3b82f6;
+    transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+/* --- FOOTER STYLES (PROVIDED) --- */
+.site-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: var(--primary-color);
+    color: #cbd5e1;
+    padding: 60px 20px 30px;
+    z-index: 4000;
+    box-sizing: border-box;
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    font-family: 'Be Vietnam Pro', sans-serif;
+}
+
+.site-footer.hidden-footer {
+    transform: translateY(100%);
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr;
+    gap: 40px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    padding-bottom: 40px;
+    margin-bottom: 30px;
+}
+
+.footer-column h3 {
+    color: white;
+    font-family: 'Lexend', sans-serif;
+    font-size: 18px;
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+.footer-desc {
+    line-height: 1.6;
+    font-size: 14px;
+    max-width: 300px;
+}
+
+.footer-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-links li {
+    margin-bottom: 12px;
+}
+
+.footer-links a {
+    color: #cbd5e1;
+    text-decoration: none;
+    transition: color 0.2s;
+    font-size: 14px;
+}
+
+.footer-links a:hover {
+    color: white;
+    padding-left: 5px;
+}
+
+.feedback-box {
+    width: 100%;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #475569;
+    background: #334155;
+    color: white;
+    margin-top: 10px;
+    resize: vertical;
+    font-family: 'Be Vietnam Pro', sans-serif;
+    font-size: 13px;
+    box-sizing: border-box;
+}
+
+.feedback-box::placeholder { color: #94a3b8; }
+.feedback-box:focus { outline: none; border-color: #3b82f6; }
+
+.feedback-btn {
+    margin-top: 8px;
+    padding: 6px 16px;
+    background: #3b82f6;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 600;
+    transition: background 0.2s;
+}
+.feedback-btn:hover { background: #2563eb; }
+
+.footer-bottom {
+    text-align: center;
+    font-size: 13px;
+    color: #64748b;
+}
+
+/* --- INTERACTION TRIGGERS --- */
+.ui-trigger-zone {
+    position: fixed;
+    left: 0;
+    width: 100%;
+    height: 40px;
+    z-index: 4500;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    pointer-events: auto;
+}
+
+.ui-trigger-zone.top { top: 0; }
+.ui-trigger-zone.bottom { bottom: 0; }
+
+.toggle-ui-btn {
+    opacity: 0;
+    transform: translateY(0);
+    transition: all 0.3s ease;
+    background: rgba(0,0,0,0.8);
+    color: white;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+.ui-trigger-zone:hover .toggle-ui-btn {
+    opacity: 1;
+}
+
+.ui-trigger-zone.top:hover .toggle-ui-btn { transform: translateY(10px); }
+.ui-trigger-zone.bottom:hover .toggle-ui-btn { transform: translateY(-10px); }
+
+.toggle-ui-btn.active {
+    background: #3b82f6;
+}
+
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden; /* Chặn cuộn trang web mặc định */
+    background-image: url('/BACKGROUND.png'); /* Ảnh nền tường gạch/phòng học cổ điển */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #ffffff; /* Tường màu trắng tinh bao la đằng sau */
+    font-family: 'Patrick Hand', cursive;
+}
+
+/* --- LỚP KHÔNG GIAN HASHTAG KÝ ỨC (MARQUEE HIỆN ĐẠI) --- */
+#hashtag-layer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #000000; /* Nền đen */
+    pointer-events: none;
+    z-index: 150; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    overflow: hidden;
+    transform-origin: center center;
+    will-change: transform, opacity;
+    mask-image: radial-gradient(circle at center, transparent var(--hole-start, 0%), black var(--hole-end, 0%));
+    -webkit-mask-image: radial-gradient(circle at center, transparent var(--hole-start, 0%), black var(--hole-end, 0%));
+}
+
+/* Hai lớp sương mù đen ở 2 mép màn hình */
+#hashtag-layer::before, 
+#hashtag-layer::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 15vw; 
+    height: 100%;
+    z-index: 2;
+    pointer-events: none;
+}
+#hashtag-layer::before {
+    left: 0;
+    background: linear-gradient(to right, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
+}
+#hashtag-layer::after {
+    right: 0;
+    background: linear-gradient(to left, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
+}
+
+.marquee-row {
+    display: flex;
+    width: max-content;
+    font-family: 'Inter', sans-serif; 
+    font-size: 20.5vh; 
+    line-height: 0.9; 
+    font-weight: 800;
+    color: #ffffff; /* Chữ trắng */
+    text-transform: uppercase;
+    white-space: nowrap; 
+    letter-spacing: -0.02em;
+}
+
+/* Thẻ span chứa text chạy */
+.marquee-row span {
+    display: inline-block;
+    white-space: nowrap; /* Tuyệt đối không xuống dòng bên trong */
+    padding-right: 0; /* Bỏ padding để 2 khối chữ nối dính liền nhau tuyệt đối */
+}
+
+/* Animation chạy ngang vô cực */
+@keyframes scroll-left {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+@keyframes scroll-right {
+    0% { transform: translateX(-50%); }
+    100% { transform: translateX(0); }
+}
+
+/* Gọi sẵn Animation để JavaScript chỉ việc thêm thời gian */
+.scroll-left { 
+    animation-name: scroll-left; 
+    animation-timing-function: linear; 
+    animation-iteration-count: infinite; 
+}
+.scroll-right { 
+    animation-name: scroll-right; 
+    animation-timing-function: linear; 
+    animation-iteration-count: infinite; 
+}
+
+.marquee-row.intro-paused {
+    animation-play-state: paused !important;
+}
+
+/* Container bao quanh */
+#board-wrapper {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    touch-action: none;
+    z-index: 5; /* Đảm bảo nổi lên trên lớp hashtag */
+    background-image: url('BACKGROUND.png'); /* Ảnh nền tường gạch/phòng học cổ điển */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* Lớp chứa nội dung di chuyển - Kích thước khổng lồ 400vw x 400vh */
+#whiteboard {
+    position: absolute;
+    width: 400vw;
+    height: 400vh;
+    background-color: var(--board-bg);
+    /* Use a fixed grid that scales with the transform for better performance */
+    background-image: 
+        linear-gradient(var(--grid-color) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+    background-size: 40px 40px;
+    background-position: center center;
+    cursor: grab;
+    will-change: transform;
+    border: 40px solid #5c3a21; /* Viền bảng gỗ màu nâu dày */
+    box-shadow: 0 50px 100px rgba(0,0,0,0.5);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transform-origin: center center;
+    /* Điểm neo luôn là giữa màn hình */
+    left: 50%;
+    top: 50%;
+    transition: box-shadow 0.5s ease;
+}
+
+/* Tiêu đề bảng */
+#board-header {
+    position: absolute;
+    top: 150px; /* Đẩy lên sát mép trên của bảng, cách viền 150px */
+    left: 50%;
+    transform: translateX(-50%); /* Chỉ căn giữa theo chiều ngang */
+    width: 100%;
+    text-align: center;
+    pointer-events: none;
+}
+
+#board-header h1 {
+    font-size: 80px; 
+    color: #f8f9fa; /* Màu trắng phấn */
+    text-shadow: 3px 3px 6px rgba(0,0,0,0.8);
+    margin: 0;
+}
+
+/* --- LỚP VÒNG XOÁY THỜI GIAN (VORTEX) --- */
+#vortex-layer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 140;
+    pointer-events: none;
+    display: none;
+    overflow: hidden;
+    background: radial-gradient(circle at center, transparent var(--hole-size, 0%), #000 var(--feather, 0%));
+    will-change: background, opacity;
+}
+
+.vortex-spiral {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 400vmax;
+    height: 400vmax;
+    background: conic-gradient(from 0deg, 
+        transparent 0%, 
+        rgba(100, 200, 255, 0.15) 5%, 
+        transparent 10%,
+        rgba(150, 255, 255, 0.1) 15%,
+        transparent 25%
+    );
+    transform: translate(-50%, -50%);
+    z-index: 179;
+    pointer-events: none;
+    border-radius: 50%;
+    filter: blur(10px);
+    will-change: transform;
+}
+
+#vortex-layer::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: var(--glow-size, 100px);
+    height: var(--glow-size, 100px);
+    background: radial-gradient(circle at center, rgba(100, 200, 255, 0.5) 0%, transparent 70%);
+    transform: translate(-50%, -50%);
+    z-index: 181;
+    border-radius: 50%;
+    filter: blur(20px);
+    transition: none;
+}
+
+.vortex-streak {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 2px;
+    height: 200px;
+    background: linear-gradient(to bottom, transparent, rgba(100, 200, 255, 0.8), rgba(255, 255, 255, 1), rgba(100, 200, 255, 0.8), transparent);
+    transform-origin: center -400px;
+    filter: blur(2px) brightness(1.5);
+    box-shadow: 0 0 15px rgba(100, 200, 255, 0.4);
+    z-index: 181;
+    will-change: transform, opacity;
+}
+
+.flying-photo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 180px;
+    height: auto;
+    background: #fff;
+    padding: 8px;
+    padding-bottom: 30px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+    z-index: 200;
+    border: 1px solid rgba(255,255,255,0.2);
+    will-change: transform, opacity;
+}
+
+.polaroid-frame {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.polaroid-frame img {
+    width: 100%;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    border: 1px solid #eee;
+}
+
+.polaroid-caption {
+    font-family: 'Patrick Hand', cursive;
+    font-size: 14px;
+    color: #333;
+    text-align: center;
+    margin-top: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* --- BOARD ASSETS --- */
+.board-asset {
+    position: absolute;
+    background: white;
+    padding: 6px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+
+.board-asset:hover {
+    transform: scale(1.05) rotate(0deg) !important;
+    z-index: 100 !important;
+}
+
+.board-asset img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.asset-photo {
+    border-bottom: 25px solid white;
+}
+
+.asset-sticker {
+    background: transparent;
+    padding: 0;
+    box-shadow: none;
+}
+
+.asset-sticker img {
+    filter: drop-shadow(0 2px 5px rgba(0,0,0,0.2));
+}
+#videos-layer {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 100vw;
+    height: 100vh;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 210;
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.video-pop-container {
+    position: absolute;
+    background: #000;
+    border: 2px solid #fff;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    will-change: transform, opacity;
+}
+
+.video-pop-container video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+#go-to-btn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color: black;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 12px 30px;
+    border-radius: 30px;
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    z-index: 5000;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+#go-to-btn:hover {
+    transform: scale(1.05);
+    background: #3b82f6;
+    color: white;
+}
+
+#zoom-info {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: rgba(0,0,0,0.7);
+    color: white;
+    padding: 12px 25px;
+    border-radius: 30px;
+    font-size: 14px;
+    font-family: 'Inter', sans-serif; /* Font hiện đại */
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    pointer-events: none;
+    z-index: 2000;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.15);
+    transition: all 0.4s ease;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}

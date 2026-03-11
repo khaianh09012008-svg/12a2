@@ -1,0 +1,381 @@
+!<DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="globals.css" />
+    <link rel="stylesheet" href="style.css" />
+        <!-- IMPORT FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Lexend:wght@700;900&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- GLOBAL VARIABLES --- */
+        :root {
+            --primary-color: #1e293b;
+            --main-bg-color: #f8fafc;
+            --header-height: 90px;
+        }
+
+        body {
+            font-family: 'Be Vietnam Pro', 'Inter', 'Segoe UI', sans-serif;
+            background-color: var(--main-bg-color);
+            margin: 0;
+            padding: 0; 
+            padding-top: var(--header-height);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* --- HEADER STYLES --- */
+        .site-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: var(--header-height);
+            background: rgba(255, 255, 255, 0.75); 
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 40px;
+            box-sizing: border-box;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+            transition: all 0.3s ease;
+        }
+
+        .header-logo {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+        
+        .header-logo-img {
+            height: auto;
+            max-height: 70%;
+            width: auto;
+            object-fit: contain;
+            display: block;
+        }
+
+        .main-nav {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: #64748b;
+            font-weight: 600;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: color 0.2s;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: var(--primary-color);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #3b82f6;
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* --- FOOTER STYLES --- */
+        .site-footer {
+            background-color: var(--primary-color);
+            color: #cbd5e1;
+            padding: 60px 20px 30px;
+            margin-top: auto; /* Đẩy footer xuống đáy nếu nội dung ngắn */
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr;
+            gap: 40px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 40px;
+            margin-bottom: 30px;
+        }
+
+        .footer-column h3 {
+            color: white;
+            font-family: 'Lexend', sans-serif;
+            font-size: 18px;
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+
+        .footer-desc {
+            line-height: 1.6;
+            font-size: 14px;
+            max-width: 300px;
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: color 0.2s;
+            font-size: 14px;
+        }
+
+        .footer-links a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+
+        .feedback-box {
+            width: 100%;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid #475569;
+            background: #334155;
+            color: white;
+            margin-top: 10px;
+            resize: vertical;
+            font-family: 'Be Vietnam Pro', sans-serif;
+            font-size: 13px;
+            box-sizing: border-box;
+        }
+        
+        .feedback-box::placeholder { color: #94a3b8; }
+        .feedback-box:focus { outline: none; border-color: #3b82f6; }
+
+        .feedback-btn {
+            margin-top: 8px;
+            padding: 6px 16px;
+            background: #3b82f6;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+        .feedback-btn:hover { background: #2563eb; }
+
+        .footer-bottom {
+            text-align: center;
+            font-size: 13px;
+            color: #64748b;
+        }
+
+        /* --- MOBILE RESPONSIVE --- */
+        @media (max-width: 768px) {
+            .site-header {
+                flex-direction: column;
+                height: auto;
+                padding: 15px 20px;
+                gap: 15px;
+            }
+            
+            .header-logo-img {
+                max-height: 50px; 
+            }
+
+            .main-nav {
+                width: 100%;
+                justify-content: center;
+                gap: 15px;
+                flex-wrap: wrap;
+            }
+
+            .nav-link {
+                font-size: 12px;
+                padding: 5px 8px;
+                background: #f1f5f9;
+                border-radius: 6px;
+            }
+            .nav-link::after { display: none; }
+
+            body { padding-top: 130px; }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+                text-align: left;
+            }
+            .footer-desc { margin: 0; }
+        }
+    </style>
+  </head>
+<body>
+    <header class="site-header">
+        <a href="#" class="header-logo">
+            <img src="image/logo.png" alt="Logo 12A2" class="header-logo-img" onerror="this.style.display='none'; this.parentElement.innerHTML='A2<span>K28</span>';">
+        </a>
+        <nav class="main-nav">
+            <a href="https://boulevardphat.github.io/grade10/" class="nav-link">Lớp 10</a>
+            <a href="https://luongminhtriet970.github.io/class11-aniversary/" class="nav-link">Lớp 11</a>
+            <a href="#" class="nav-link">Lớp 12</a>
+            <a href="https://boulevardphat.github.io/members/" class="nav-link" style="color: var(--primary-color);">12A2</a>
+            <a href="https://pgtomvn.github.io/teachers/" class="nav-link">Giáo Viên</a>
+        </nav>
+    </header>
+    <main>
+        <div class="GTH">
+    <img class="element" src="img/1.png" />
+    <img class="img" src="img/2.png" />
+    <img class="element" src="img/3.png" />
+    <img class="element-2" src="img/4.png" />
+    <img class="element-3" src="img/5.png" />
+    <img class="element" src="img/6.png" />
+    <img class="element" src="img/7.png" />
+    <img class="element" src="img/8.png" />
+    <img class="element" src="img/9.png" />
+    <img class="element" src="img/10.png" />
+    <img class="element" src="img/11.png" />
+    <img class="element" src="img/12.png" />
+    <img class="element" src="img/13.png" />
+    <img class="element" src="img/14.png" />
+    <img class="element" src="img/15.png" />
+    <img class="element" src="img/16.png" />
+    <img class="element" src="img/17.png" />
+    <img class="element" src="img/18.png" />
+    <img class="element" src="img/20.png" />
+<div class="custom-controls">
+    <button id="btn-scroll-down" class="control-btn"></button>
+    <button id="btn-play-video" class="control-btn"></button>
+</div>
+    </main>
+<footer class="site-footer">
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>VỀ CHÚNG TÔI</h3>
+                <p class="footer-desc">
+                    
+                </p>
+            </div>
+            
+            <div class="footer-column">
+                <h3>LIÊN KẾT NHANH</h3>
+                <ul class="footer-links">
+                    <li><a href="https://boulevardphat.github.io/grade10/">Lớp 10</a></li>
+                    <li><a href="https://luongminhtriet970.github.io/class11-aniversary/">Lớp 11</a></li>
+                    <li><a href="#">Lớp 12</a></li>
+                    <li><a href="https://boulevardphat.github.io/members/">Thành Viên</a></li>
+                    <li><a href="https://pgtomvn.github.io/teachers/">Giáo Viên</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>LIÊN HỆ</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Facebook: 12A2 - K28</a></li>
+                </ul>
+                <div style="margin-top: 15px;">
+                    <h4 style="color: white; margin: 0 0 5px 0; font-size: 14px; font-weight: 600;">Góp ý cho lớp:</h4>
+                    <textarea class="feedback-box" rows="3" placeholder="Nhập lời nhắn..."></textarea>
+                    <button class="feedback-btn">Gửi</button>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2023 - 2026 12A2 K28. All rights reserved. Made with love.
+        </div>
+    </footer>
+    <div id="video-overlay">
+        <div class="video-container">
+            <video id="main-video" controls>
+                <source src="video.mp4" type="video/mp4">
+            </video>
+            <button id="close-btn">&times;</button>
+        </div>
+    </div>
+</div>
+<audio id="music-vn" src="vnthinhvuong.mp3"></audio>
+  <script>
+const bgMusic = document.getElementById('music-vn');
+    const overlay = document.getElementById('video-overlay');
+    const mainVideo = document.getElementById('main-video');
+    const closeBtn = document.getElementById('close-btn');
+    const btnPlay = document.getElementById('btn-play-video');
+    const btnScroll = document.getElementById('btn-scroll-down');
+
+    let isMusicPlaying = false;
+
+    // 1. CLICK MÀN HÌNH: Chỉ để Bật/Tắt nhạc
+    window.addEventListener('click', (e) => {
+        // Nếu bấm trúng nút điều hướng hoặc đang xem video thì không làm gì hết
+        if (e.target.closest('.custom-controls') || overlay.style.display === 'flex') return;
+
+        if (!isMusicPlaying) {
+            bgMusic.play().catch(() => console.log("Cần tương tác để phát nhạc"));
+            isMusicPlaying = true;
+            console.log("Nhạc ON");
+        } else {
+            bgMusic.pause();
+            isMusicPlaying = false;
+            console.log("Nhạc OFF");
+        }
+    });
+
+    // 2. CLICK NÚT ĐỎ: Chỉ cái này mới được mở Video
+    btnPlay.addEventListener('click', (e) => {
+        e.stopPropagation(); // Ngăn sự kiện click lan ra màn hình (tránh bị tắt nhạc rồi mới mở video)
+        
+        overlay.style.display = 'flex';
+        bgMusic.pause(); // Tắt nhạc nền để nghe tiếng video
+        isMusicPlaying = false;
+        mainVideo.play();
+        console.log("Mở Video");
+    });
+
+    // 3. ĐÓNG VIDEO: Nhạc nền tự phát lại
+    function closePopup() {
+        overlay.style.display = 'none';
+        mainVideo.pause();
+        mainVideo.currentTime = 0;
+        
+        bgMusic.play();
+        isMusicPlaying = true;
+    }
+
+    // Các sự kiện đóng video
+    closeBtn.addEventListener('click', (e) => { e.stopPropagation(); closePopup(); });
+    overlay.addEventListener('click', (e) => { if (e.target === overlay) closePopup(); });
+    window.addEventListener('keydown', (e) => { if (e.key === "Escape") closePopup(); });
+
+    // 4. CLICK MŨI TÊN XANH: Cuộn trang xuống dưới cùng (chỗ Footer)
+    btnScroll.addEventListener('click', (e) => {
+        e.stopPropagation();
+        window.scrollTo({
+            top: document.body.scrollHeight,
+            behavior: 'smooth'
+        });
+    });
+</script>
+</body>
+</html>
