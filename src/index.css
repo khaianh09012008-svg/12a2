@@ -246,7 +246,7 @@ body, html {
     width: 100%;
     height: 100%;
     overflow: hidden; /* Chặn cuộn trang web mặc định */
-    background-image: url('/BACKGROUND.png'); /* Ảnh nền tường gạch/phòng học cổ điển */
+    background-image: url('/photo/BACKGROUND.png'); /* Ảnh nền tường gạch/phòng học cổ điển */
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
