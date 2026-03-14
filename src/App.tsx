@@ -101,8 +101,8 @@ export default function App() {
 
   const videosData = [
     { id: 1, src: '/photo/V1.mp4', width: '25vw', height: '14vw', top: '20%', left: '20%', delay: 0.1 },
-    { id: 2, src: '/phto/V2.mp4', width: '28vw', height: '16vw', top: '40%', left: '70%', delay: 0.15 },
-    { id: 3, src: '/photo/19_11/video.mp4', width: '24vw', height: '13vw', top: '70%', left: '30%', delay: 0.2 },
+    { id: 2, src: '/photo/V2.mp4', width: '28vw', height: '16vw', top: '40%', left: '70%', delay: 0.15 },
+    { id: 3, src: '/19_11/video.mp4', width: '24vw', height: '13vw', top: '70%', left: '30%', delay: 0.2 },
     { id: 4, src: '/photo/V3.mp4', width: '30vw', height: '17vw', top: '15%', left: '80%', delay: 0.25 },
     { id: 5, src: '/photo/V4.mp4', width: '26vw', height: '15vw', top: '55%', left: '10%', delay: 0.3 },
   ];

@@ -250,7 +250,7 @@ body, html {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    background-color: #ffffff; /* Tường màu trắng tinh bao la đằng sau */
+    background-color: #1a1a1a; /* Màu nền tối dự phòng thay vì trắng tinh */
     font-family: 'Patrick Hand', cursive;
 }
 
@@ -351,7 +351,7 @@ body, html {
     justify-content: center;
     touch-action: none;
     z-index: 5; /* Đảm bảo nổi lên trên lớp hashtag */
-    background-image: url('BACKGROUND.png'); /* Ảnh nền tường gạch/phòng học cổ điển */
+    background-image: url('/photo/BACKGROUND.png'); /* Ảnh nền tường gạch/phòng học cổ điển */
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;

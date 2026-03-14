@@ -15,6 +15,7 @@ export interface PolaroidPhoto {
 export interface BoardElement {
   id: string;
   url: string;
+  link?: string;
   type: 'photo' | 'sticker' | 'note' | 'drawing' | 'group-photo'
   x: number; // Percentage from left (0-100)
   y: number; // Percentage from top (0-100)
@@ -92,7 +93,7 @@ export const BOARD_ASSETS: BoardElement[] = [
   {
     id: 'b1',
     url: '/photo/GDTH.png',
-    link: '/photo/gdth/gdth.html',
+    link: '/gdth/gdth.html',
     type: 'sticker',
     x: -1,
     y: 2,
@@ -103,7 +104,7 @@ export const BOARD_ASSETS: BoardElement[] = [
   {
     id: 'b2',
     url: '/photo/THANHLICH.png',
-    link: '/photo/Thanh lịch/thanh lịch.html',
+    link: '/Thanh lịch/thanh lịch.html',
     type: 'sticker',
     x: 20,
     y: 3,
@@ -134,7 +135,7 @@ export const BOARD_ASSETS: BoardElement[] = [
     {
     id: 's1',
     url: '/photo/1911.png',
-    link: '/photo/19_11/19_11.html',
+    link: '/19_11/19_11.html',
     type: 'sticker',
     x: 60,
     y: 3,
